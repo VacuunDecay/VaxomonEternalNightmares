@@ -4,10 +4,9 @@ class MapGenerator():
     TileSetX = 64
     TileSetY = 64
 
-    mat = [[0] * 10 for _ in range(10)]
+    
 
     def __init__(self, scrn):
-        self.mat[2][2] = 1
         self.scrn = scrn
         self.img0 = Sprite("Images\\MissingTexture.png", self.scrn)
         self.img1 = Sprite("Images\\Flor.png", self.scrn)
@@ -15,10 +14,11 @@ class MapGenerator():
 
     def load(self, filename):
         imgMap = Sprite(filename, self.scrn)
-        imgSize = imgMap.imgae.get_size()
+        self.mapSize = imgMap.imgae.get_size()
 
-        for i in range(0, imgSize[0]):
-            for j in range(0, imgSize[1]):
+        self.mat = [[0] * self.mapSize[1] for _ in range(self.mapSize[0])]
+        for i in range(0, self.mapSize[0]):
+            for j in range(0, self.mapSize[1]):
                 color = imgMap.imgae.get_at((i, j))
 
                 if color == (0, 0, 0):
@@ -29,8 +29,8 @@ class MapGenerator():
                     self.mat[i][j] = -1
 
     def draw(self):
-        for i in range(0, 10):
-            for j in range(0, 10):
+        for i in range(0, self.mapSize[0]):
+            for j in range(0, self.mapSize[1]):
                 if self.mat[i][j] == 0:
                     self.img1.draw(i*self.TileSetX, j*self.TileSetY)
                 elif self.mat[i][j] == 1:
