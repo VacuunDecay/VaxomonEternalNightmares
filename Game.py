@@ -35,6 +35,7 @@ class Game:
                     quit()
 
             scrn.fill(backGrondColor)
+            Map.load("Images\\map.png")
             Map.draw()
 
             pygame.display.flip()
